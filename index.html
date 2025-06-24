@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To My Moon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Playfair Display', serif;
+      background: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .age {
+      font-size: 4em;
+      font-weight: bold;
+    }
+
+    .message {
+      font-size: 1.3em;
+      margin-top: 1.5em;
+      line-height: 1.6;
+    }
+
+    .sender {
+      margin-top: 2em;
+      font-style: italic;
+      font-size: 1.1em;
+    }
+
+    .stars {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    .countdown {
+      margin-top: 1em;
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #ffd;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <h1>The Moon is turning</h1>
+    <div class="age" id="age">...</div>
+    <div class="countdown" id="countdown">Loading countdown...</div>
+    <div class="message">
+      Happy 29th birthday to my moon.<br>
+      You brighten my life endlessly.
+    </div>
+    <div class="sender">— Mariam</div>
+  </div>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/17/audio_3f6f459519.mp3?filename=space-ambient-143197.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // عمره من يوم ميلاده
+    const birth = new Date('1996-07-03T00:00:00');
+    const now = new Date();
+    const diff = now - birth;
+    const years = Math.floor(diff / (1000*60*60*24*365.25));
+    document.getElementById('age').textContent = years + ' years';
+
+    // نجوم متلألئة
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'stars';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 5) + 's';
+      star.style.opacity = Math.random();
+      document.body.appendChild(star);
+    }
+
+    // عد تنازلي لعيد ميلاده
+    const birthday = new Date('2025-07-03T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      const distance = birthday - now;
+      if (distance <= 0) {
+        document.getElementById('countdown').textContent = "It's your day 🎉";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / 1000 / 60) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+      document.getElementById('countdown').textContent =
+        `Countdown to 3 July: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
